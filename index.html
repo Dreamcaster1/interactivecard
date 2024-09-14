@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" style="font-family: Space; letter-spacing: 1.5px;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+  
+  <title>Frontend Mentor | Interactive card details form</title>
+
+ 
+  <style>
+    .attribution { font-size: 11px; text-align: center; opacity: 0; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    @font-face {
+      font-family: Space;
+      src: url(static/SpaceGrotesk-Bold.ttf);
+    }
+    @font-face {
+      font-family: Spacelight;
+      src: url(static/SpaceGrotesk-Medium.ttf);
+    }
+    #background1 {
+    z-index: -3;
+    position: absolute;
+    }
+    #background1-img{
+      width: 500px;
+    }
+    #background2 {
+      position: absolute;
+      right: 20%;
+      top: 33%;
+    }
+    input {
+      font-family: Space;
+      color: rgb(196, 196, 196);
+      border-radius: 5px;
+      border-style: solid;
+      border-width: 0.5px;
+      border-color: rgb(196, 196, 196);
+      padding-left: 10px;
+      width: 300px;
+      height: 30px;
+    }
+    input:hover {
+      color: rgb(161, 161, 161);
+      border-color: rgb(160, 160, 160);
+      transition: color 0.5s ease;
+      transition: border-color 0.5s ease;
+    }
+    button {
+      font-family: Space;
+    }
+    #cardholder {
+      margin-bottom: 20px;
+    }
+    #cardholder-name {
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+    #cardnumber {
+      margin-bottom: 20px;
+      
+    }
+    #cardnumber-div {
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+    #expdate-div {
+      margin-bottom: 5px;
+      font-size: 11px;
+      width: 130px;
+    }
+    #expdate {
+      width: 170px;
+    }
+    #month {
+      width: 60px;
+      margin-right: 10px;
+    }
+    #year {
+      width: 60px;
+    }
+    #mny {
+      display: flex;
+    }
+    #cardcvv-input {
+     margin-bottom: 30px;
+    }
+    #cvv-input {
+      width: 130px;
+    }
+    #exp-cvv {
+      display: flex;
+      height: 100px;
+    }
+    #cvv {
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+    #confirm-button {
+      background-color: rgb(0, 0, 56);
+      color: white;
+      border-width: 0px;
+      border-radius: 7px;
+      width: 315px;
+      height: 35px;
+      cursor: pointer;
+    }
+    #confirm-button:hover {
+      background-color: rgb(0, 0, 0);
+      transition: background-color 0.5s ease;
+    }
+    #frontcard {
+      position: absolute;
+      z-index: 2;
+      top: 20%;
+      left: 170px;
+    }
+    #backcard {
+      position: absolute;
+      z-index: 2;
+      top: 60%;
+      left: 270px;
+    }
+    #carddetails{
+      position: absolute;
+      z-index: 3;
+      top: 40%;
+      color: white;
+      left: 200px;
+      width: 400px;
+    }
+    #cardcvv {
+      position: absolute;
+      z-index: 4;
+      top: 45%;
+      left: 81%;
+      color: white;
+      font-size: 12px;
+     
+    }
+    #number-display {
+      font-size: 30px;
+      letter-spacing: 2.5px;
+      font-family: Spacelight;
+      padding-top: 7px;
+    }
+    #date-name {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-family: Spacelight;
+      margin-top: 20px;
+      color: white;
+      position: absolute;
+      top: 185px;
+    }
+    #card-logo {
+      position: absolute;
+      z-index: 3;
+      left: 200px;
+      top: 165px;
+    }
+    #date-display {
+      display: flex;
+      position: absolute;
+      left: 370px;
+    }
+    #name-display {
+      margin-left: 30px;
+    }
+    #error-name {
+      z-index: -1;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+    }
+    #cardnumber-error {
+      z-index: -1;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+    }
+    #wrong-format-cardnumber {
+      z-index: -2;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+      top: 0px;
+      width: 200px;
+    }
+    #date-error {
+      z-index: -1;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+    }
+    #wrong-format-date {
+      z-index: -2;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+      top: 0px;
+      width: 200px;
+    }
+    #wrong-format-cvv {
+      z-index: -2;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+      top: 0px;
+      width: 100px;
+    }
+    #error-cvv {
+      z-index: -1;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+    }
+    #wrong-format-name {
+      z-index: -2;
+      position: absolute;
+      opacity: 0;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: red;
+      top: 0px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0;">
+   <div id="background1">
+    <img id="background1-img" src="./images/bg-main-desktop.png">
+   </div>
+<div id="background2">
+  <div id="cardholder">
+    <div id="cardholder-name">
+      CARDHOLDER NAME
+    </div>
+    <div>
+      <input id="input-name" type="text" value="e.g. Jane Appleseed" maxlength="30"> 
+    </div>
+    <div>
+      <p id="error-name">Can't leave blank</p>
+      <p id="wrong-format-name">Wrong format, letters only</p>
+    </div>
+  </div>
+    
+    
+    <div id="cardnumber">
+      <div id="cardnumber-div">
+        CARD NUMBER
+      </div>
+      <div>
+       <input id="cardnumber-input" type="text" value="e.g. 1234 5678 9123 0000" maxlength="20"> 
+      </div>
+      <div >
+         <p id="cardnumber-error">Can't leave blank</p>
+         <p id="wrong-format-cardnumber">Wrong format, numbers only</p>
+      </div>
+    </div>
+<div id="exp-cvv">
+  <div id="expdate">
+    <div id="expdate-div">
+      EXP. DATE (MM/YY)
+    </div>
+    <div id="mny">
+    <div>
+      <input id="month" type="text" value="MM" maxlength="2">
+    </div>
+    <div>
+      <input id="year" type="text" value="YY" maxlength="2">
+    </div>
+  </div>
+  <div>
+    <p id="date-error">Can't leave blank</p>
+    <p id="wrong-format-date">Wrong format, numbers only</p>
+  </div>
+  </div>
+    
+  <div id="cardcvv-input">
+    <div id="cvv">
+      CVC
+    </div>
+    <div>
+     <input id="cvv-input" type="text" value="e.g. 123" maxlength="3">  
+    </div>
+    <div>
+      <p id="wrong-format-cvv">Wrong format, numbers only</p>
+      <p id="error-cvv">Can't leave blank</p>
+    </div>
+  </div>
+</div>
+   
+  <div id="confirm">
+   <button id="confirm-button">
+     Confirm
+   </button> 
+  </div>
+  
+  </div>
+   
+</div>
+<div id="frontcard">
+  <img id="frontcard-img" src="./images/bg-card-front.png">
+  <div id="date-name">
+    <div id="name-display">
+      Jane Appleseed
+    </div>
+    <div id="date-display">
+      <div id="m">
+        00
+      </div>
+      <div id="y">
+        /00
+      </div>
+      
+    </div>
+</div>
+ </div>
+ <div id="backcard">
+   <img id="backcard-img" src="./images/bg-card-back.png">
+   <div id="cardcvv">
+    000
+  </div>
+  </div>
+ </div>
+
+   <div id="carddetails">
+    <div id="number-display">
+      0000 0000 0000 0000
+    </div>
+   </div>
+ 
+
+  
+   <div id="card-logo">
+    <img id="card-logo-img" src="./images/card-logo.svg">
+   </div>
+  
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+  <script>
+    function func() {
+      this.value = ""
+    }
+    let array = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"]
+    let m = document.querySelector("#m")
+    let y = document.querySelector("#y")
+    let datedisplay = document.querySelector("#date-display")
+    let namedisplay = document.querySelector("#name-display")
+    let numberdisplay = document.querySelector("#number-display")
+    let inputname = document.querySelector("#input-name")
+    let month = document.querySelector("#month")
+    let year = document.querySelector("#year")
+    let cardnumberinput = document.querySelector("#cardnumber-input")
+    let cvvinput = document.querySelector("#cvv-input")
+    let cardcvv = document.querySelector("#cardcvv")
+    let confirmbutton = document.querySelector("#confirm-button")
+    let errorname = document.querySelector("#error-name")
+    let cardholder = document.querySelector("#cardholder")
+    let wrongformatcardnumber = document.querySelector("#wrong-format-cardnumber")
+    let cardnumbererror = document.querySelector("#cardnumber-error")
+    let wrongformatdate = document.querySelector("#wrong-format-date")
+    let dateerror = document.querySelector("#date-error")
+    let errorcvv = document.querySelector("#error-cvv")
+    let wrongformatcvv = document.querySelector("#wrong-format-cvv") 
+    let wrongformatname = document.querySelector("#wrong-format-name")
+    inputname.addEventListener("click", func)
+    year .addEventListener("click", func)
+    cardnumberinput.addEventListener("click", func)
+    cvvinput.addEventListener("click", func)
+    month.addEventListener("click", func)
+    cardnumberinput.addEventListener("input", function() {
+      let text = cardnumberinput.value
+      cardnumberinput.style.color = "black"
+      numberdisplay.textContent = text
+    })
+    inputname.addEventListener("input", function() {
+      let textt = inputname.value
+      inputname.style.color = "black"
+      namedisplay.textContent = textt
+    })
+    cvvinput.addEventListener("input", function() {
+      let textt = cvvinput.value
+      if(parseInt(cvvinput.value) < 10) {
+        textt += "0" + "0"
+      }
+      else if (parseInt(cvvinput.value) < 100) {
+        textt += "0"
+      }
+      cvvinput.style.color = "black"
+      cardcvv.textContent = textt
+    })
+    month.addEventListener("input", function() {
+      let textt = month.value
+      if(parseInt(month.value) < 10) {
+        textt += 0
+      }
+      
+      month.style.color = "black"
+      m.textContent = textt
+      
+    })
+    year.addEventListener("input", function() {
+      let textt = "/" + year.value
+      if(parseInt(year.value) < 10) {
+        textt += 0
+      }
+      
+      year.style.color = "black"
+      y.textContent = textt
+      
+    })
+    confirmbutton.addEventListener("click", function() {
+      let inptvalue0 = Number(inputname.value)
+
+      if(inputname.value == "e.g. Jane Appleseed") {
+        console.log("cant leave blank")
+        errorname.style.opacity = 1
+        errorname.style.position = "relative"
+        cardholder.style.marginBottom = "15px"
+        document.getElementById("input-name").style.borderColor = "red"
+      }
+      else if(!isNaN(inptvalue0)) {
+        errorname.style.opacity = 0
+        errorname.style.position = "absolute"
+        wrongformatname.style.opacity = 1
+        wrongformatname.style.position = "relative"
+        wrongformatname.style.marginBottom = "15px"
+        document.getElementById("input-name").style.borderColor = "red"
+      } 
+      else if (inputname.value == "") {
+        console.log("cant leave blank")
+        errorname.style.opacity = 1
+        errorname.style.position = "relative"
+        cardholder.style.marginBottom = "15px"
+        document.getElementById("input-name").style.borderColor = "red"
+      }
+
+      else{
+        errorname.style.opacity = 0
+        errorname.style.position = "absolute"
+        wrongformatname.style.opacity = 0
+        wrongformatname.style.position = "absolute"
+        document.getElementById("input-name").style.borderColor = "black"
+      }
+
+
+
+
+
+      let inptvalue = Number(cardnumberinput.value)
+     
+      if (cardnumberinput.value == "") {
+        console.log("cant leave blank")
+        cardnumbererror.style.opacity = 1
+        cardnumbererror.style.position = "relative"
+        cardnumbererror.style.marginBottom = "15px"
+        document.getElementById("cardnumber-input").style.borderColor = "red"
+      }
+
+      else if(!isNaN(inptvalue)) {
+        console.log("yes card input")
+        document.getElementById("cardnumber-input").style.borderColor = "black"
+        cardnumbererror.style.opacity = 0
+        cardnumbererror.style.position = "absolute"
+        wrongformatcardnumber.style.opacity = 0
+        wrongformatcardnumber.style.position = "absolute"
+      }
+      
+      else if(cardnumberinput.value == "e.g. 1234 5678 9123 0000") {
+        console.log("cant leave blank")
+        cardnumbererror.style.opacity = 1
+        cardnumbererror.style.position = "relative"
+        cardnumbererror.style.marginBottom = "15px"
+        document.getElementById("cardnumber-input").style.borderColor = "red"
+      }
+
+      else{
+        console.log("no card input")
+        cardnumbererror.style.opacity = 0
+        cardnumbererror.style.position = "absolute"
+        wrongformatcardnumber.style.opacity = 1
+        wrongformatcardnumber.style.position = "relative"
+        wrongformatcardnumber.style.marginBottom = "15px"
+        document.getElementById("cardnumber-input").style.borderColor = "red"
+      }
+      
+
+
+
+
+      let inptvalue2 = Number(month.value)
+       if(month.value == "") {
+        dateerror.style.opacity = 1
+        dateerror.style.position = "relative"
+        dateerror.style.marginBottom = "5px"
+        document.getElementById("month").style.borderColor = "red"
+       } 
+
+        else if(!isNaN(inptvalue2)) {
+          console.log("yes month input")
+           dateerror.style.opacity = 0
+        dateerror.style.position = "absolute"
+         wrongformatdate.style.opacity = 0
+        wrongformatdate.style.position = "absolute"
+        document.getElementById("month").style.borderColor = "black"
+        }   
+
+        else if (month.value == "MM") {
+          console.log("cant leave blank")
+          dateerror.style.opacity = 1
+        dateerror.style.position = "relative"
+        dateerror.style.marginBottom = "5px"
+        document.getElementById("month").style.borderColor = "red"
+        }  
+
+        else {
+          console.log("no month input")
+        dateerror.style.opacity = 0
+        dateerror.style.position = "absolute"
+        wrongformatdate.style.opacity = 1
+        wrongformatdate.style.position = "relative"
+        wrongformatdate.style.marginBottom = "5px"
+        document.getElementById("month").style.borderColor = "red"
+        }
+
+
+
+
+
+      let inptvalue3 = Number(year.value)
+      if (year.value == "") {
+        dateerror.style.opacity = 1
+        dateerror.style.position = "relative"
+        dateerror.style.marginBottom = "5px"
+        document.getElementById("year").style.borderColor = "red"
+      }
+
+      else if(!isNaN(inptvalue3)) {
+          console.log("yes year input")
+          dateerror.style.opacity = 0
+        dateerror.style.position = "absolute"
+         wrongformatdate.style.opacity = 0
+        wrongformatdate.style.position = "absolute"
+        document.getElementById("year").style.borderColor = "black"
+        }   
+
+        else if (year.value == "YY") {
+          console.log("cant leave blank")
+          dateerror.style.opacity = 1
+        dateerror.style.position = "relative"
+        dateerror.style.marginBottom = "5px"
+        document.getElementById("year").style.borderColor = "red"
+        }  
+        
+        else {
+          console.log("no year input")
+          dateerror.style.opacity = 0
+        dateerror.style.position = "absolute"
+        wrongformatdate.style.opacity = 1
+        wrongformatdate.style.position = "relative"
+        wrongformatdate.style.marginBottom = "5px"
+        document.getElementById("year").style.borderColor = "red"
+        }
+
+
+
+
+      let inptvalue4 = Number(cvvinput.value)
+      if(cvvinput.value == "") {
+        errorcvv.style.opacity = 1
+        errorcvv.style.position = "relative"
+        errorcvv.style.marginBottom = "5px"
+        document.getElementById("cvv-input").style.borderColor = "red"
+      }
+      else if(!isNaN(inptvalue4)) {
+          console.log("yes cvv input")
+          errorcvv.style.opacity = 0
+          errorcvv.style.position = "absolute"
+         wrongformatcvv.style.opacity = 0
+         wrongformatcvv.style.position = "absolute"
+        document.getElementById("cvv-input").style.borderColor = "black"
+        }  
+
+        else if (cvvinput.value == "e.g. 123") {
+          console.log("cant leave blank")
+          errorcvv.style.opacity = 1
+          errorcvv.style.position = "relative"
+          errorcvv.style.marginBottom = "5px"
+          document.getElementById("cvv-input").style.borderColor = "red"
+        }  
+
+        else {
+          console.log("no cvv input")
+          errorcvv.style.opacity = 0
+        errorcvv.style.position = "absolute"
+        wrongformatcvv.style.opacity = 1
+        wrongformatcvv.style.position = "relative"
+        wrongformatcvv.style.marginBottom = "5px"
+        document.getElementById("cvv-input").style.borderColor = "red"
+        }
+    })
+  </script>
+</body>
+</html>
